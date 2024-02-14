@@ -90,7 +90,7 @@
                                         class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4">
                                         <h2 class="mt-3 text-dark font-weight-bold">Enter our global community of
                                             developers.</h2>
-                                        <h6 class="text-dark text-sm mt-5">Copyright © 2022 SAB Concept Design System
+                                        <h6 class="text-dark text-sm mt-5">Copyright © 2024 SAB Concept Design System
                                             by Karbura.</h6>
                                     </div>
                                 </div>

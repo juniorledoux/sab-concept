@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="text-start position-absolute fixed-bottom ms-7">
-                                        <h6 class="text-white text-sm mb-5">Copyright © 2022 SAB Concept Design System
+                                        <h6 class="text-white text-sm mb-5">Copyright © 2024 SAB Concept Design System
                                             by Karbura.</h6>
                                     </div>
                                 </div>

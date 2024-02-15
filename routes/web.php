@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\auth\VerificationCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,3 +97,5 @@ Route::get('/laravel-examples/users-management', [UserController::class, 'index'
 Route::get('/', function () {
     return view('index');
 });
+
+Route::post('/send-verification-code', [VerificationCodeController::class, 'sendVerificationCode'])->name('send-verification-code');

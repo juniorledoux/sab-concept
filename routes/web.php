@@ -98,4 +98,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/send-verification-code', [VerificationCodeController::class, 'sendVerificationCode'])->name('send-verification-code');
+Route::get('/verify', [VerificationCodeController::class, 'showVerificationForm'])->name('verification.form');

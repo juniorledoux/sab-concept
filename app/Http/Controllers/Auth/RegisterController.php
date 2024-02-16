@@ -2,47 +2,33 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Mail\EmailVerification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+
+
 
 class RegisterController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    protected $redirectTo = '/dashboard';
+
+    public function __construct()
     {
-        return view('auth.signup');
+        $this->middleware('guest');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
         $request->validate([
-
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:7|max:255',
-            'terms' => 'accepted',
-        ], [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
-            'terms.accepted' => 'You must accept the terms and conditions'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
@@ -51,10 +37,15 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Send verification code email
+        $verificationCode = Str::random(6);
+        $user->verification_code = $verificationCode;
+        $user->save();
+        // Send the verification code via email
+        // Assuming you have an EmailVerification Mailable class
+        // You can adjust this according to your implementation
+        Mail::to($user->email)->send(new EmailVerification($verificationCode));
 
-        Auth::login($user);
-
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('verification.form')->with('email', $user->email);
     }
 }

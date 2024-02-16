@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -31,6 +32,6 @@ class EmailVerification extends Mailable
     public function build()
     {
         return $this->subject('Email Verification')
-                    ->view('email.verifycode');
+                    ->view('emails.email_verification');
     }
 }

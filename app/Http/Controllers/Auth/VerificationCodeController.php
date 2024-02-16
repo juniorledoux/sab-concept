@@ -4,40 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailVerification;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class VerificationCodeController extends Controller
 {
     /**
-     * Send the verification code via email.
+     * Show the verification code entry form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\View
      */
-    public function sendVerificationCode(Request $request)
+    public function showVerificationForm()
     {
-        // Validate the request data
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-        ]);
-
-        // Retrieve the user by email
-        $user = User::where('email', $request->email)->first();
-
-        // Generate a verification code
-        $verificationCode = Str::random(6);
-
-        // Update the user's verification code
-        $user->verification_code = $verificationCode;
-        $user->save();
-
-        // Send the verification code via email
-        Mail::to($user->email)->send(new EmailVerification($verificationCode));
-
-        return redirect()->back()->with('success', 'Verification code sent successfully. Check your email.');
+        return view('auth.verify_code');
     }
 
     /**
@@ -48,21 +29,18 @@ class VerificationCodeController extends Controller
      */
     public function handleVerification(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'verification_code' => 'required|string|size:6', // Adjust size according to your verification code length
         ]);
 
-        // Retrieve the authenticated user
-        $user = $request->user();
+        $user = Auth::user();
 
-        // Check if the provided verification code matches the one stored in the user's record
-        if ($user && $user->verification_code === $request->verification_code) {
-            // Mark the email as verified (optional)
+        if ($user->verification_code === $request->verification_code) {
+            // Verification successful, update the user's email_verified_at column
             $user->email_verified_at = now();
             $user->save();
 
-            // Redirect to the dashboard or any desired destination upon successful verification
+            // Redirect to the dashboard or any other desired destination
             return redirect()->route('dashboard')->with('success', 'Email verified successfully.');
         }
 

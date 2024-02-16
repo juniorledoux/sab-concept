@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
-
 class LoginController extends Controller
 {
 
@@ -37,10 +36,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $rememberMe)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            // Check if the user's email is verified
+            if (Auth::user()->hasVerifiedEmail()) {
+                return redirect()->intended('/dashboard');
+            } else {
+                Auth::logout();
+                return redirect()->route('verification.notice')->with('warning', 'Please verify your email address.');
+            }
         }
-
-
 
         return back()->withErrors([
             'message' => 'The provided credentials do not match our records.',

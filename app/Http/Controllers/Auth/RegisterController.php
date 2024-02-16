@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\VerifyEmailNotification;
 
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -55,6 +56,13 @@ class RegisterController extends Controller
         Auth::login($user);
 
 
-        return redirect(RouteServiceProvider::HOME);
-    }
-}
+         // Send verification email
+         $user->notify(new VerifyEmailNotification());
+
+         // Redirect the user to the verification notice page
+         return redirect()->route('verification-notice')->with('status', 'Please verify your email address by clicking the verification link sent to your email.');
+     }
+ }
+
+
+

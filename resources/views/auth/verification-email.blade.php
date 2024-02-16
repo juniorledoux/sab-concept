@@ -1,3 +1,5 @@
+<!-- verify-email.blade.php -->
+
 @extends('layouts.guest')
 
 @section('content')
@@ -27,13 +29,15 @@
                                                     </div>
                                                 @endif
 
-                                                {{ __('Before proceeding, please check your email for a verification link.') }}
-                                                {{ __('If you did not receive the email') }},
-                                                <form class="d-inline" method="POST"
-                                                    action="{{ route('verification-notice') }}">
+                                                <p>{{ __('Your email address is not verified yet. Please check your email and click the verification link to verify your account.') }}
+                                                </p>
+
+                                                <!-- Add login button -->
+                                                <form method="GET" action="{{ route('sign-in') }}">
                                                     @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                                                    <button type="submit" class="btn btn-primary">
+                                                        {{ __('sign-in') }}
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>

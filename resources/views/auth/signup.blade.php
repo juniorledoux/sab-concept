@@ -1,5 +1,6 @@
-<x-guest-layout>
+@extends('layouts.guest')
 
+@section('content')
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -66,8 +67,8 @@
                                         <label>Name</label>
                                         <div class="mb-3">
                                             <input type="text" id="name" name="name" class="form-control"
-                                                placeholder="Enter your name" value="{{old("name")}}" aria-label="Name"
-                                                aria-describedby="name-addon">
+                                                placeholder="Enter your name" value="{{ old('name') }}"
+                                                aria-label="Name" aria-describedby="name-addon">
                                             @error('name')
                                                 <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -75,8 +76,8 @@
                                         <label>Email Address</label>
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address" value="{{old("email")}}" aria-label="Email"
-                                                aria-describedby="email-addon">
+                                                placeholder="Enter your email address" value="{{ old('email') }}"
+                                                aria-label="Email" aria-describedby="email-addon">
                                             @error('email')
                                                 <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -128,4 +129,4 @@
         </section>
     </main>
 
-</x-guest-layout>
+@endsection

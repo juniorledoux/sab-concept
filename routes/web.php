@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\auth\VerificationCodeController;
+use App\Http\Controllers\auth\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,9 @@ Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
 
 Route::get('/tables', function () {
     return view('tables');
@@ -97,5 +97,14 @@ Route::get('/laravel-examples/users-management', [UserController::class, 'index'
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
-Route::get('/verify', [VerificationCodeController::class, 'showVerificationForm'])->name('verification.form');
+Route::get('/check-email', [VerificationController::class, 'show'])->name('verification-notice');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/email/verify', function () {
+    return view('auth.verification-email');
+})->name('verification.notice');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Verified;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,7 @@ class LoginController extends Controller
                 return redirect()->intended('/dashboard');
             } else {
                 Auth::logout();
-                return redirect()->route('verification.notice')->with('warning', 'Please verify your email address.');
+                return redirect()->route('verification.done')->with('warning', 'Please verify your email address.');
             }
         }
 

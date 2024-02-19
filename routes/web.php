@@ -107,4 +107,4 @@ Route::get('/dashboard', function () {
 
 Route::get('/email/verify', function () {
     return view('auth.verification-email');
-})->name('verification.notice');
+})->name('verification.done');

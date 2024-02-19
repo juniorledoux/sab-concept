@@ -1,6 +1,4 @@
-@extends('layouts.guest')
-
-@section('content')
+<x-guest-layout>
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -29,8 +27,8 @@
 
                                                 {{ __('Before proceeding, please check your email for a verification link.') }}
                                                 {{ __('If you did not receive the email') }},
-                                                <form class="d-inline" method="POST"
-                                                    action="{{ route('verification-notice') }}">
+                                                <form class="d-inline" method="GET"
+                                                    action="{{ route('verification.notice') }}">
                                                     @csrf
                                                     <button type="submit"
                                                         class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
@@ -46,4 +44,4 @@
             </div>
         </section>
     </main>
-@endsection
+</x-guest-layout>

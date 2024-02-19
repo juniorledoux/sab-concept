@@ -1,6 +1,5 @@
-@extends('layouts.guest')
+<x-guest-layout>
 
-@section('content')
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -18,9 +17,9 @@
                                 <div class="oblique-image position-absolute d-flex fixed-top ms-auto h-100 z-index-0 bg-cover me-n8"
                                     style="background-image:url('../assets/img/image-sign-up.jpg')">
                                     <div class="my-auto text-start max-width-350 ms-7">
-                                        <h1 class="mt-3 text-white font-weight-bolder">Start your <br> new journey.</h1>
-                                        <p class="text-white text-lg mt-4 mb-4">Use these awesome forms to login or
-                                            create new account in your project for free.</p>
+                                        <h1 class="mt-3 text-white font-weight-bolder">Sign up <br> new account.</h1>
+                                        <p class="text-white text-lg mt-4 mb-4">Nice to meet you! Please enter your
+                                            details.</p>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-group d-flex">
                                                 <a href="javascript:;" class="avatar avatar-sm rounded-circle"
@@ -56,11 +55,11 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex flex-column mx-auto">
-                            <div class="card card-plain mt-8">
-                                <div class="card-header pb-0 text-left bg-transparent">
+                            <div class="card card-plain mt-6">
+                                {{-- <div class="card-header pb-0 text-left bg-transparent">
                                     <h3 class="font-weight-black text-dark display-6">Sign up</h3>
                                     <p class="mb-0">Nice to meet you! Please enter your details.</p>
-                                </div>
+                                </div> --}}
                                 <div class="card-body">
                                     <form role="form" method="POST" action="sign-up">
                                         @csrf
@@ -73,12 +72,31 @@
                                                 <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
+                                        <label>Entreprise</label>
+                                        <div class="mb-3">
+                                            <input type="text" id="societe" name="societe" class="form-control"
+                                                placeholder="Enter your entreprise name" value="{{ old('societe') }}"
+                                                aria-label="societe" aria-describedby="societe-addon">
+                                            @error('societe')
+                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                         <label>Email Address</label>
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
                                                 placeholder="Enter your email address" value="{{ old('email') }}"
                                                 aria-label="Email" aria-describedby="email-addon">
                                             @error('email')
+                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <label>Phone number</label>
+                                        <div class="mb-3">
+                                            <input type="text" maxlength="13" id="phone" name="phone"
+                                                class="form-control" placeholder="237699887766"
+                                                value="{{ old('phone') }}" aria-label="Email"
+                                                aria-describedby="phone-addon">
+                                            @error('phone')
                                                 <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -103,7 +121,8 @@
                                             @enderror
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign up</button>
+                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign
+                                                up</button>
                                             <button type="button" class="btn btn-white btn-icon w-100 mb-3">
                                                 <span class="btn-inner--icon me-1">
                                                     <img class="w-5" src="../assets/img/logos/google-logo.svg"
@@ -128,5 +147,4 @@
             </div>
         </section>
     </main>
-
-@endsection
+</x-guest-layout>

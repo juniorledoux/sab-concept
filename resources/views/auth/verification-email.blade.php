@@ -1,8 +1,6 @@
 <!-- verify-email.blade.php -->
 
-@extends('layouts.guest')
-
-@section('content')
+<x-guest-layout>
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -33,12 +31,12 @@
                                                 </p>
 
                                                 <!-- Add login button -->
-                                                <form method="GET" action="{{ route('sign-in') }}">
+                                                {{-- <form method="GET" action="{{ route('sign-in') }}">
                                                     @csrf
                                                     <button type="submit" class="btn btn-primary">
                                                         {{ __('sign-in') }}
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -50,4 +48,4 @@
             </div>
         </section>
     </main>
-@endsection
+</x-guest-layout>

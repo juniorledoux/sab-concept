@@ -6,7 +6,7 @@
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand d-flex align-items-center m-0"
-                href=" https://demos.creative-tim.com/corporate-ui-dashboard/pages/dashboard.html " target="_blank">
+                href="/">
                 <span class="font-weight-bold text-lg">SAB Concept</span>
             </a>
         </div>
@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="{{ route('tables') }}">
+                    <a class="nav-link  " href="{{ route('contacts') }}">
                         <div
                             class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                             <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"

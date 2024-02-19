@@ -1,13 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\auth\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +27,19 @@ use App\Http\Controllers\auth\VerificationController;
 
 
 // Route::get('/', [HomeController::class, 'index']);
-Route::get('/', function () {
-    return redirect('/dashboard');
-})->middleware('auth');
+// Route::get('/', function () {
+//     return redirect('/dashboard');
+// })->middleware('auth');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard')->middleware('auth');
 
-Route::get('/tables', function () {
-    return view('tables');
-})->name('tables')->middleware('auth');
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts')->middleware('auth');
+Route::post('/contacts/add', [ContactController::class, 'add'])->name('contact-add')->middleware('auth');
+Route::get('/contacts-delete/{id}', [ContactController::class, 'destroy'])->name('contact-delete')->middleware('auth');
+Route::get('/contacts-edit/{id}', [ContactController::class, 'edit'])->name('contact-edit')->middleware('auth');
+Route::put('/contacts-update/{id}', [ContactController::class, 'update'])->name('contact-update')->middleware('auth');
 
 Route::get('/wallet', function () {
     return view('wallet');
@@ -90,9 +94,13 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create']
 Route::post('/reset-password', [ResetPasswordController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/laravel-examples/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
-Route::put('/laravel-examples/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
-Route::get('/laravel-examples/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+Route::get('/management/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
+Route::put('/management/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
+Route::get('/management/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+Route::post('/management/users-add', [UserController::class, 'add'])->name('users-add')->middleware('auth');
+Route::get('/management/users-delete/{id}', [UserController::class, 'destroy'])->name('users-delete')->middleware('auth');
+Route::get('/users-edit/{id}', [UserController::class, 'edit'])->name('users-edit')->middleware('auth');
+Route::put('/users-edit/update/{id}', [UserController::class, 'update'])->name('users-update')->middleware('auth');
 
 Route::get('/', function () {
     return view('index');
@@ -102,6 +110,7 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::get('/check-email', [VerificationController::class, 'show'])->name('verification-notice');
 
 Route::get('/dashboard', function () {
+    if(Auth::user()->email_verified_at==null) return redirect('/email/verify');
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

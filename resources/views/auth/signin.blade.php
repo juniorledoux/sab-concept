@@ -40,13 +40,13 @@
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
                                                 placeholder="Enter your email address"
-                                                value="{{ old('email') ? old('email') : 'admin@admin.com' }}"
+                                                value="{{ old('email') ? old('email') : '' }}"
                                                 aria-label="Email" aria-describedby="email-addon">
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password"
-                                                value="{{ old('password') ? old('password') : 'secret' }}"
+                                                value="{{ old('password') ? old('password') : '' }}"
                                                 class="form-control" placeholder="Enter password" aria-label="Password"
                                                 aria-describedby="password-addon">
                                         </div>
@@ -90,7 +90,7 @@
                                         class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4">
                                         <h2 class="mt-3 text-dark font-weight-bold">Enter our global community of
                                             developers.</h2>
-                                        <h6 class="text-dark text-sm mt-5">Copyright © 2022 SAB Concept Design System
+                                        <h6 class="text-dark text-sm mt-5">Copyright © 2024 SAB Concept Design System
                                             by Karbura.</h6>
                                     </div>
                                 </div>

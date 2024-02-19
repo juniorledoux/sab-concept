@@ -23,7 +23,7 @@ function getCategoriesArray($parent, $child = null)
     $categories = array(
         'dashboard', 'tables', 'wallet', 'RTL',
 
-        'laravel-examples' => array(
+        'management' => array(
             'user-profile',
             'users-management',
         ),

@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="nav-item px-3 py-3 border-radius-sm  d-flex align-items-center">
-                <a href="{{ route('tables') }}" class="nav-link text-white p-0">
+                <a href="{{ route('contacts') }}" class="nav-link text-white p-0">
                     Tables
                 </a>
             </li>
